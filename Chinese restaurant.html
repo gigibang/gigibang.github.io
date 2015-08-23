@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+     <head>
+     <title>Chinese Restaurant</title>
+    
+       <meta charset="utf-8" />
+	   
+	   
+	   
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="test_themes/test.min.css" />
+  <link rel="stylesheet" href="test_themes/jquery.mobile.icons.min.css" />
+ 
+  <!--<link rel="stylesheet" href="themes/Chinese_red.min.css" />
+  <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />-->
+  
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  
+</head>
+<body>
+	<!--begin of home page-->
+     <div data-role="page" id="page1" data-theme="a">
+     <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">Chinese Restaurant</h1>
+     </div>
+     <div data-role="main" class="ui-content">
+		<div data-role="content">
+		<div class="ui-grid-b">
+		 <div class="ui-block-a"><span><a href="#menu" data-role="button" data-icon="grid" data-iconpos="right">Menu</a></span></div>
+		 <div class="ui-block-b"><span><a href="showrecipe.php" data-role="button" data-icon="check" data-iconpos="right">Recipe</a></span></div>
+		 <div class="ui-block-c"><span><a href="#feedback" data-role="button" data-icon="star" data-iconpos="right">Feedback</a></span></div>
+		</div>
+	  </div>
+	  <div data-role="content">
+		<div class="ui-grid-b">
+		 <div class="ui-block-a"><span><a href="#aboutour" data-role="button" data-icon="info" data-iconpos="right">About our</a></span></div>
+		 <div class="ui-block-b"><span><a href="#aboutdeveloper" data-role="button" data-icon="gear" data-iconpos="right">About developer</a></span></div>
+		 <div class="ui-block-c"><span><a href="#map-page" data-role="button" data-icon="arrow-u" data-iconpos="right">Navigation</a></span></div>
+		</div>
+	  </div>
+	</div> 
+    
+     <div data-role="footer">
+          <h2>Fresh and Tasty</h2>
+     </div>    
+     </div>
+    <!--end of home page-->
+	
+	
+	<!-- begin ABOUT OUR page -->
+        <section id="aboutour" data-role="page" data-theme="a">
+          <div >
+          <h1 style="text-align:center">ABOUT OUR</h1>
+          <a href="#page1" data-role="button" data-icon="grid" data-mini="true" data-inline="true">Home</a>
+          </div>
+           <div data-role="content">
+                <div data-role="collapsible-set">
+                  <div data-role="collapsible">
+                    <h3>HISTORY</h3>
+  	                <p>Sorry, we just open 3 days, but we are the best.</p>
+                  </div>
+                  <div data-role="collapsible">
+                    <h3>STUFF</h3>
+                    <p>Untill now, we only have one stuff--Simon, but his is good.</p>
+                  </div>
+                  <div data-role="collapsible">
+                    <h3>PHONE</h3>
+                    <p>Come in, do not call</p>
+                  </div>
+                  </div>
+              </div>
+          </div>
+          <div data-role="footer">
+          <h2>Fresh and Tasty</h2>
+     </div> 
+        </section>
+        <!-- end ABOUT OUR page -->
+
+
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+
+     <script type="text/javascript">
+            $( document ).on( "pageinit", "#map-page", function() {
+                var defaultLatLng = new google.maps.LatLng(-38.198374, 144.298905);  // Default to Hollywood, CA when no geolocation support
+                if ( navigator.geolocation ) {
+                    function success(pos) {
+                        // Location found, show map with these coordinates
+                        drawMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+                    }
+                    function fail(error) {
+                        drawMap(defaultLatLng);  // Failed to find location, show default map
+                    }
+                    // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
+                    navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy:true, timeout: 6000});
+                } else {
+                    drawMap(defaultLatLng);  // No geolocation support, show default map
+                }
+                function drawMap(latlng) {
+                    var myOptions = {
+                        zoom: 10,
+                        center: latlng,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+                    // Add an overlay to the map of current lat/lng
+                    var marker = new google.maps.Marker({
+                        position: latlng,
+                        map: map,
+                        title: "Greetings!"
+                    });
+                }
+            });
+
+
+            </script>
+
+
+
+     <!-- begin MAP page -->
+
+    
+         
+    <div data-url="map-page"  data-theme="a" data-role="page" id="map-page" style="width: 100%; height: 100%; padding: 0;">
+    <div >
+          <h1 style="text-align:center">FING US</h1>
+          <a href="#page1" data-role="button" data-icon="grid" data-mini="true" data-inline="true">Home</a>
+          </div>
+        <div data-role="header" data-theme="a">
+    <h1>Maps</h1>
+    </div>
+        
+    <div role="main" class="ui-content" id="map-canvas" style="width:100%; height:300px;" >
+        <!-- map loads here... -->
+    </div>
+       
+
+        <div data-role="footer">
+          <h2>Fresh and Tasty</h2>
+     </div> 
+   </div>
+    <!-- end MAP page -->
+
+
+
+    <!-- begin ABOUT DEVELOPER page -->
+        <section id="aboutdeveloper" data-role="page" data-theme="a">
+          <div>
+          <h1 style="text-align:center">ABOUT OUR</h1>
+          <a href="#page1" data-role="button" data-icon="grid" data-mini="true" data-inline="true">Home</a>
+          </header>
+           <div data-role="content">
+                <div data-role="collapsible-set">
+                  <div data-role="collapsible">
+                    <h3>NAME</h3>
+  	                <p>XIAOXING MO</p>
+                  </div>
+                  <div data-role="collapsible">
+                    <h3>SCHOOL ID</h3>
+                    <p>214268541</p>
+                  </div>
+                  </div>
+              </div>
+          </div>
+          <div data-role="footer">
+          <h2>Fresh and Tasty</h2>
+     </div> 
+        </section>
+        <!-- end ABOUT DEVELOPER page -->
+	
+	<!--begin of feedback page-->
+     <div data-role="page" id="feedback" data-theme="a" >
+     <div>
+          <h1 style="text-align:center">Feedback</h1>
+          <a href="#page1" data-role="button" data-icon="grid" data-mini="true" data-inline="true">Home</a>
+              
+     </div>
+     <div data-role="main" class="ui-content">
+          
+          <form>
+               <label for="essay">Name</label>
+               <textarea name="customer_name" id="customer_name" placeholder="Type here"></textarea>
+			   <label for="essay">Phone Number</label>
+               <textarea name="phone_number" id="phone_number" placeholder="Type here"></textarea>
+			   <label for="essay">Feedback</label>
+               <textarea name="costomer_feedback" id="costomer_feedback" placeholder="Type here"></textarea>
+               <label for="rate">10 is THE BEST</label>
+               <input type="range" name="rate" id="rate" min="0" max="10"/>
+			   <div class="ui-grid-b">
+			   <div class="ui-block-a"><span></span></div>
+  			   <div class="ui-block-b"><span>
+               <input type="submit" name="submit_feedback" id="submit_feedback" value="Submit" data-theme="r" onclick="javaScript:window.location.href='#alert2';"/>
+			   </span></div>
+			   <div class="ui-block-c"><span></span></div>
+			   </div>
+		  </form>
+     </div>
+     <div data-role="footer">
+          <h2>Fresh and Tasty</h2>
+     </div>  
+     </div>
+	 <!--end of feedback page-->
+	 
+	 <!--begin of menu page-->
+     <div data-role="page" id="menu" data-theme="a">
+     <div data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">Chinese Restaurant's menu</h1>
+		  <a href="#page1" data-role="button" data-icon="grid" data-mini="true" data-inline="true">Home</a>
+     </div>
+     <div data-role="main" class="ui-content">
+		<div data-role="content">
+			<ul data-role="listview">
+				<li><a href="#hotpot">
+				<img alt="#" src="hotpot.jpg" /> 
+				<h3>HOT POT</h3> 
+				<p>Genuine and authentic Sichuan cuisine</p> 
+				</a><span class="ui-li-count">6</span> </li> 
+				<li> <a href="#saute">
+				<img alt="#" src="saute.jpg" /> 
+				<h3>SAUTE</h3> 
+				<p>There is a dish for everyone</p> 
+				</a><span class="ui-li-count">4</span> </li> 
+				<li><a href="#soup"> 
+				<img alt="#" src="soup.jpg" /> 
+				<h3>SOUP</h3> 
+				<p>Health and delicious</p> 
+				</a><span class="ui-li-count">2</span></li> 
+			</ul>
+	  </div>
+	</div> 
+     <div data-role="footer">
+          <h2>Fresh and Tasty</h2>
+     </div>    
+     </div>
+    <!--end of menu page-->
+	
+	<!--begin of HOTPOT page-->
+     <div data-role="page" id="hotpot" data-theme="a" data-dom-cache="false">
+     <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">HOTPOT</h1>
+		   <a href="#menu" data-role="button" data-icon="grid" data-mini="true" data-inline="true">Menu</a>
+     </div>
+	 
+      <div data-role="content">
+	 
+			<ul data-role="listview" data-filter="true">
+				<li> 
+				<a href="#crabhotpotdialog"> 
+				<img alt="#" src="crab.jpg" />
+				<h3>CRAB HOTPOT</h3> 
+				<p>Fresh crab</p> 
+				</a>
+				</li> 
+				<li> <a href="#chickenhotpotdialog"> 
+				<img alt="#" src="chicken.jpg" /> 
+				<h3>CHICKEN HOTPOT</h3> 
+				<p>Fresh chicken</p> 
+				</a> </li>
+				<li> <a href="#beefhotpotdialog"> 
+				<img alt="#" src="beef.jpg" /> 
+				<h3>BEFF HOTPOT</h3> 
+				<p>Fresh beef</p> 
+				</a> </li>
+				<li> <a href="#spicyshrimphotpotdialog"> 
+				<img alt="#" src="spicyshrimp.jpg" /> 
+				<h3>SPICY SHRIMP HOTPOT</h3> 
+				<p>Fresh shrimp</p> 
+				</a> </li>
+				<li> <a href="#fishheadhotpotdialog"> 
+				<img alt="#" src="fishhead.jpg" /> 
+				<h3>FISH HEAD HOTPOT</h3> 
+				<p>Fresh fish</p> 
+				</a> </li> 
+				<li> <a href="#muttonhotpotdialog"> 
+				<img alt="#" src="mutton.png" /> 
+				<h3>MUTTON HOTPOT</h3> 
+				<p>Fresh mutton</p> 
+				</a> </li> 
+			</ul>
+			</div>
+     <div data-role="footer">
+          <h2>Fresh and Tasty</h2>
+     </div>    
+     </div>
+    <!--end of HOTPOT page-->
+	
+	
+
+
+	<!--begin of alert1 dialog page-->
+    <div data-role="page" data-dialog="true" id="alert">
+        <h1 style="text-align:center">SUBMIT SUCCESSFUL</h1>
+        <a href="#menu" data-role="button" data-icon="grid" data-mini="true" data-inline="true">MENU</a>
+        </div>
+    <!--end of alert1 dialog page-->
+
+    <!--begin of alert2 dialog page-->
+    <div data-role="page" data-dialog="true" id="alert2">
+        <h1 style="text-align:center">SUBMIT SUCCESSFUL</h1>
+        <a href="#page1" data-role="button" data-icon="grid" data-mini="true" data-inline="true">HOME</a>
+        </div>
+    <!--end of alert2 dialog page-->
+
+
+	    <!--begin of CRAB HOTPOT page-->
+		<div data-role="page" data-dialog="true" id="crabhotpotdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">CARB HOTPOT</h1>
+		   <a href="#hotpot" data-role="button" data-icon="grid" data-mini="true" data-inline="true">HOTPOT</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This hotpot is very tasty!<p>
+		  </div>
+		  
+		   <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="1">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="0" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+			
+			
+		  <div data-role="footer">
+		   <h2>Fresh and Tasty</h2>
+		  </div>
+      </div> 
+		<!--end of CRAB HOTPOT page-->
+	
+	
+	
+	
+	 <!--begin of CHICKEN HOTPOT page-->
+		<div data-role="page" data-dialog="true" id="chickenhotpotdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">CHICKEN HOTPOT</h1>
+		   <a href="#hotpot" data-role="button" data-icon="grid" data-mini="true" data-inline="true">HOTPOT</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This hotpot is very tasty!<p>
+		  </div>
+
+             <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="2">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="3" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of CHICKEN HOTPOT page-->
+		
+		 <!--begin of BEEF HOTPOT page-->
+		<div data-role="page" data-dialog="true" id="beefhotpotdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">BEEF HOTPOT</h1>
+		   <a href="#hotpot" data-role="button" data-icon="grid" data-mini="true" data-inline="true">HOTPOT</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This hotpot is very tasty!<p>
+		  </div>
+
+            <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="4">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="5" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of BEEF HOTPOT page-->
+		
+		 <!--begin of SPICY SHRIMP HOTPOT page-->
+		<div data-role="page" data-dialog="true" id="spicyshrimphotpotdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">SPICY SHRIMP HOTPOT</h1>
+		   <a href="#hotpot" data-role="button" data-icon="grid" data-mini="true" data-inline="true">HOTPOT</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This hotpot is very tasty!<p>
+		  </div>
+
+              <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="6">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="7" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of SPICY SHRIMP HOTPOT page-->
+		
+		<!--begin of MUTTON HOTPOT page-->
+		<div data-role="page" data-dialog="true" id="muttonhotpotdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">MUTTON HOTPOT</h1>
+		   <a href="#hotpot" data-role="button" data-icon="grid" data-mini="true" data-inline="true">HOTPOT</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This hotpot is very tasty!<p>
+		  </div>
+
+            <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="8">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="9" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of MUTTON HOTPOT page-->
+		
+		<!--begin of FISH HEAD HOTPOT page-->
+		<div data-role="page" data-dialog="true" id="fishheadhotpotdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">FISH HEAD HOTPOT</h1>
+		   <a href="#hotpot" data-role="button" data-icon="grid" data-mini="true" data-inline="true">HOTPOT</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This hotpot is very tasty!<p>
+		  </div>
+
+            <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="10">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="11" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of FISH HEAD HOTPOT page-->
+		
+	
+	
+	<!--begin of SAUTE page-->
+     <div data-role="page" id="saute" data-theme="a">
+	 <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">SAUTE</h1>
+		   <a href="#menu" data-role="button" data-icon="grid" data-mini="true" data-inline="true">Menu</a>
+     </div>
+     <div data-role="main" class="ui-content">
+		<div data-role="content">
+			<ul data-role="listview" data-filter="true">
+				<li> <a href="friedpork"> 
+				<img alt="#" src="friedpork.jpg" /> 
+				<h3>FRIED PORK</h3> 
+				<p>Fresh Pork</p> 
+				</a> </li> 
+				<li> <a href="#tofudialog"> 
+				<img alt="#tofu" src="tofu.jpg" /> 
+				<h3>TOFU</h3> 
+				<p>Fresh tofu</p> 
+				</a> </li>
+				<li> <a href="#friedfishdialog"> 
+				<img alt="#friedfish" src="friedfish.jpg" /> 
+				<h3>FRIED FISH</h3> 
+				<p>Fresh Fish</p> 
+				</a> </li>
+				<li> <a href="#friedbeefdialog"> 
+				<img alt="#friedbeef" src="friedbeef.jpg" /> 
+				<h3>FRIED BEEF</h3> 
+				<p>Fresh beef</p> 
+				</a> </li>
+				
+			</ul>
+	  </div>
+	</div> 
+     <div data-role="footer">
+          <h2>Fresh and Tasty</h2>
+     </div>    
+     </div>
+    <!--end of SAUTE page-->
+
+    <!--begin of FRIED PORK page-->
+		<div data-role="page" data-dialog="true" id="friedporkdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">FRIED PORK </h1>
+		   <a href="#saute" data-role="button" data-icon="grid" data-mini="true" data-inline="true">SAUTE</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This is very tasty!<p>
+		  </div>
+
+            <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="12">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="13" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of FRIED PORK page-->
+
+    <!--begin of TOFU page-->
+		<div data-role="page" data-dialog="true" id="tofudialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center"> TOFU </h1>
+		   <a href="#saute" data-role="button" data-icon="grid" data-mini="true" data-inline="true">SAUTE</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This is very tasty!<p>
+		  </div>
+
+             <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="14">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="15" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of TOFU page-->
+
+    <!--begin of FRIED FISH  page-->
+		<div data-role="page" data-dialog="true" id="friedfishdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">FRIED FISH</h1>
+		   <a href="#saute" data-role="button" data-icon="grid" data-mini="true" data-inline="true">SAUTE</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This is very tasty!<p>
+		  </div>
+
+             <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="16">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="17" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of FRIED FISH page-->
+
+     <!--begin of FRIED BEEF page-->
+		<div data-role="page" data-dialog="true" id="friedbeefdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">FRIED BEEF</h1>
+		   <a href="#saute" data-role="button" data-icon="grid" data-mini="true" data-inline="true">SAUTE</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This is very tasty!<p>
+		  </div>
+
+             <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="18">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="19" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of FRIED BEEF page-->
+	
+	<!--begin of SOUP page-->
+     <div data-role="page" id="soup" data-theme="a">
+	 <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">SOUP</h1>
+		   <a href="#menu" data-role="button" data-icon="grid" data-mini="true" data-inline="true">Menu</a>
+     </div>
+     <div data-role="main" class="ui-content">
+		<div data-role="content">
+			<ul data-role="listview" data-filter="true">
+				<li> <a href="#chickensoupdialog"> 
+				<img alt="#" src="chickensoup.jpg" /> 
+				<h3>CHICKEN SOUP</h3> 
+				<p>Fresh Chicken</p> 
+				</a> </li> 
+				<li> <a href="#fishsoupdialog"> 
+				<img alt="#" src="fishsoup.jpg" /> 
+				<h3>FISH SOUP</h3> 
+				<p>Fresh Fish</p> 
+				</a> </li> 
+			</ul>
+	  </div>
+	</div> 
+     <div data-role="footer">
+          <h2>Fresh and Tasty</h2>
+     </div>    
+     </div>
+    <!--end of SOUP page-->
+
+
+    <!--begin of CHICKEN SOUP page-->
+		<div data-role="page" data-dialog="true" id="chickensoupdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">CHICKEN SOUP</h1>
+		   <a href="#soup" data-role="button" data-icon="grid" data-mini="true" data-inline="true">SOUP</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This is very tasty!<p>
+		  </div>
+
+             <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="20">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="21" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of CHICKEN SOUP page-->
+
+	
+    <!--begin of FISH SOUP page-->
+		<div data-role="page" data-dialog="true" id="fishsoupdialog">
+		  <div  data-position="fixed" data-fullscreen="true">
+          <h1 style="text-align:center">FISH SOUP</h1>
+		   <a href="#soup" data-role="button" data-icon="grid" data-mini="true" data-inline="true">SOUP</a>
+		  </div>
+		  <div data-role="content" class="ui-content">
+			 <p>This is very tasty!<p>
+		  </div>
+
+             <form method="GET" action="dish.php">
+			  <fieldset data-role="controlgroup">
+			  <legend>Do you want this?</legend>
+				<label for="yes">YES</label>
+				<input type="radio" name="yes_no" id="yes" value="22">
+				<label for="no">NO</label>
+				<input type="radio" name="yes_no" id="no" value="23" checked>	
+			  </fieldset>
+			  <input type="submit" onclick="javaScript:window.location.href='#alert';" data-inline="true" value="Submit" id="submit_1" >			 
+			</form>
+
+		  <div data-role="footer">
+			 <h2>Fresh and Tasty</h2>
+		  </div>
+		</div> 
+		<!--end of FISH SOUP page-->
+ 
+    
+</body>
+</html>
